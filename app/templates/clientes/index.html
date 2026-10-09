@@ -1,0 +1,285 @@
+{% extends "base.html" %}
+
+{% block title %}Santa Clara | De nuestro campo a tu hogar{% endblock %}
+{% block meta_description %}Conoce productos lácteos frescos, naturales y nutritivos elaborados por-productores locales de Santa Clara.{% endblock %}
+
+{% block content %}
+
+{# ============ LISTA DE SLIDES DEL CARRUSEL (edita aquí fotos y textos) ============ #}
+{% set hero_slides = [
+    {
+        "image": "https://images.unsplash.com/photo-1550583724-b2692b85b150?auto=format&fit=crop&w=2000&q=88",
+        "alt": "Leche fresca sirviéndose en un vaso",
+        "kicker": "Nuestra organización",
+        "title": "Asociación de Mujeres",
+        "accent": "Mi Santa Clara.",
+        "text": "Mujeres de la comunidad que producen, cuidan y comparten lo mejor de su campo.",
+        "endpoint": "nosotros.nosotros",
+        "label": "Conócenos"
+    },
+    {
+        "image": "https://images.unsplash.com/photo-1571212515416-fef01fc43637?auto=format&fit=crop&w=2000&q=88",
+        "alt": "Yogurt con frutilla fresca",
+        "kicker": "Elaboración artesanal",
+        "title": "Hecho a mano,",
+        "accent": "con paciencia y cariño.",
+        "text": "Cada yogurt, queso y leche se prepara con procesos sencillos y mucho cuidado.",
+        "endpoint": "productos.productos",
+        "label": "Ver productos"
+    },
+    {
+        "image": "https://images.unsplash.com/photo-1486297678162-eb2a19b0a32d?auto=format&fit=crop&w=2000&q=88",
+        "alt": "Quesos artesanales madurando",
+        "kicker": "Quesos artesanales",
+        "title": "Maduración natural,",
+        "accent": "sabor de tradición.",
+        "text": "Quesos frescos y madurados elaborados por las socias de la asociación.",
+        "endpoint": "productos.productos",
+        "label": "Ver quesos"
+    },
+    {
+        "image": "https://images.unsplash.com/photo-1488477181946-6428a0291777?auto=format&fit=crop&w=2000&q=88",
+        "alt": "Yogurt natural cremoso",
+        "kicker": "Yogurt natural",
+        "title": "Cremoso y sin aditivos,",
+        "accent": "como en casa.",
+        "text": "Ingredientes simples y una frescura que se nota en cada cucharada.",
+        "endpoint": "productos.productos",
+        "label": "Ver yogurt"
+    },
+    {
+        "image": "https://images.unsplash.com/photo-1563636619-e9143da7973b?auto=format&fit=crop&w=2000&q=88",
+        "alt": "Leche fresca en envase",
+        "kicker": "Comunidad y compromiso",
+        "title": "Ingresos justos,",
+        "accent": "una comunidad más fuerte.",
+        "text": "Cada compra apoya a productoras locales y a sus familias.",
+        "endpoint": "formulario.formulario",
+        "label": "Hacer pedido"
+    },
+    {
+        "image": "https://images.unsplash.com/photo-1452195100486-9cc805987862?auto=format&fit=crop&w=2000&q=88",
+        "alt": "Queso madurado con nueces e higos",
+        "kicker": "Calidad que se nota",
+        "title": "Cada pieza,",
+        "accent": "elaborada con cuidado.",
+        "text": "Del campo a tu mesa, con el sello de la Asociación de Mujeres Mi Santa Clara.",
+        "endpoint": "productos.productos",
+        "label": "Ver catálogo"
+    }
+] %}
+
+<!-- ============ HERO CARRUSEL (automático, sin flechas) ============ -->
+<style>
+    .sc-hero { position: relative; overflow: hidden; background: #0f2747; }
+    .sc-hero__track { display: flex; transition: transform .8s cubic-bezier(.22, 1, .36, 1); }
+    .sc-hero__slide { position: relative; min-width: 100%; min-height: 620px; display: flex; align-items: center; overflow: hidden; }
+    .sc-hero__img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: center; z-index: 0; }
+    .sc-hero__shade { position: absolute; inset: 0; z-index: 1; background: linear-gradient(90deg, #0f2747 0%, rgba(15,39,71,.82) 40%, rgba(15,39,71,.1) 100%); }
+    .sc-hero__shade-bottom { position: absolute; inset: 0; z-index: 1; background: linear-gradient(0deg, rgba(15,39,71,.5) 0%, transparent 60%); }
+    .sc-hero__content { position: relative; z-index: 2; width: 100%; }
+    .sc-hero__dots { position: absolute; z-index: 5; left: 50%; bottom: 24px; transform: translateX(-50%); display: flex; gap: 10px; }
+    .sc-hero__dot { width: 10px; height: 10px; border-radius: 999px; border: 0; padding: 0; background: rgba(255,255,255,.5); cursor: pointer; transition: all .3s; }
+    .sc-hero__dot.is-active { width: 30px; background: #d9f99d; }
+    .sc-hero__badge { z-index: 4; }
+    @media (min-width: 1024px) { .sc-hero__slide { min-height: 680px; } }
+</style>
+
+<section class="sc-hero" aria-roledescription="carrusel" aria-label="Portada" data-hero-carousel>
+    <div class="sc-hero__track" data-hero-track>
+
+        <!-- Slide 1: Portada original (vaca) -->
+        <article class="sc-hero__slide" data-hero-slide>
+            <img class="sc-hero__img" src="https://images.unsplash.com/photo-1500595046743-cd271d694d30?auto=format&fit=crop&w=2000&q=88" alt="Vaca pastando en un campo verde" width="2000" height="1333" fetchpriority="high">
+            <div class="sc-hero__shade"></div>
+            <div class="sc-hero__shade-bottom"></div>
+            <div class="sc-hero__content">
+                <div class="mx-auto w-full max-w-7xl px-6 py-24 lg:px-8">
+                    <div class="max-w-2xl text-white">
+                        <p class="mb-5 flex items-center gap-3 text-xs font-bold uppercase tracking-[0.28em] text-lime-200" data-i18n="home.hero.kicker">
+                            <span class="h-px w-10 bg-lime-200"></span>
+                            De nuestro campo a tu hogar
+                        </p>
+                        <h1 id="hero-title" class="font-display text-5xl font-semibold leading-[0.98] sm:text-6xl lg:text-7xl">
+                            <span data-i18n="home.hero.title">Lo bueno de la naturaleza,</span>
+                            <span class="mt-2 block font-display italic text-lime-200" data-i18n="home.hero.titleSpan">lo llevamos a tu mesa.</span>
+                        </h1>
+                        <p class="mt-7 max-w-xl text-base leading-7 text-white/80 sm:text-lg" data-i18n="home.hero.desc">Productos lácteos frescos, naturales y nutritivos, preparados cerca para ti y tu familia.</p>
+
+                        <div class="mt-9 flex flex-col gap-3 sm:flex-row">
+                            <a href="{{ url_for('productos.productos') }}" class="inline-flex items-center justify-center gap-3 rounded-full bg-field px-7 py-4 text-xs font-bold uppercase tracking-wider text-white transition hover:bg-field-dark" data-i18n="home.hero.products">
+                                Conoce nuestros productos <span aria-hidden="true">→</span>
+                            </a>
+                            <a href="{{ url_for('nosotros.nosotros') }}" class="inline-flex items-center justify-center gap-3 rounded-full border border-white/40 bg-white/10 px-7 py-4 text-xs font-bold uppercase tracking-wider text-white backdrop-blur transition hover:bg-white/20" data-i18n="home.hero.story">
+                                Nuestra historia <span aria-hidden="true">↗</span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </article>
+
+        <!-- Slides 2 al 7: salen de la lista de arriba -->
+        {% for s in hero_slides %}
+        <article class="sc-hero__slide" data-hero-slide>
+            <img class="sc-hero__img" src="{{ s.image }}" alt="{{ s.alt }}" width="2000" height="1333" loading="lazy">
+            <div class="sc-hero__shade"></div>
+            <div class="sc-hero__shade-bottom"></div>
+            <div class="sc-hero__content">
+                <div class="mx-auto w-full max-w-7xl px-6 py-24 lg:px-8">
+                    <div class="max-w-2xl text-white">
+                        <p class="mb-5 flex items-center gap-3 text-xs font-bold uppercase tracking-[0.28em] text-lime-200">
+                            <span class="h-px w-10 bg-lime-200"></span>
+                            {{ s.kicker }}
+                        </p>
+                        <h2 class="font-display text-5xl font-semibold leading-[0.98] sm:text-6xl lg:text-7xl">
+                            {{ s.title }}
+                            <span class="mt-2 block font-display italic text-lime-200">{{ s.accent }}</span>
+                        </h2>
+                        <p class="mt-7 max-w-xl text-base leading-7 text-white/80 sm:text-lg">{{ s.text }}</p>
+                        <div class="mt-9 flex flex-col gap-3 sm:flex-row">
+                            <a href="{{ url_for(s.endpoint) }}" class="inline-flex items-center justify-center gap-3 rounded-full bg-field px-7 py-4 text-xs font-bold uppercase tracking-wider text-white transition hover:bg-field-dark">
+                                {{ s.label }} <span aria-hidden="true">→</span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </article>
+        {% endfor %}
+    </div>
+
+    <div class="sc-hero__dots" data-hero-dots></div>
+
+    <div class="sc-hero__badge absolute bottom-10 right-10 hidden h-32 w-32 rotate-6 flex-col items-center justify-center rounded-full border-2 border-lime-200/80 bg-white/90 text-field shadow-xl lg:flex">
+        <strong class="font-display text-2xl" data-i18n="home.hero.natural">100%</strong>
+        <span class="text-[10px] font-bold tracking-[0.2em]" data-i18n="home.hero.naturalLabel">NATURAL</span>
+    </div>
+</section>
+
+<script>
+(() => {
+    const root = document.querySelector("[data-hero-carousel]");
+    if (!root) return;
+
+    const track = root.querySelector("[data-hero-track]");
+    const slides = [...root.querySelectorAll("[data-hero-slide]")];
+    const dotsBox = root.querySelector("[data-hero-dots]");
+    const DELAY = 5000; // 5 segundos entre slides
+    let index = 0;
+    let timer = null;
+
+    const dots = slides.map((_, i) => {
+        const dot = document.createElement("button");
+        dot.type = "button";
+        dot.className = "sc-hero__dot";
+        dot.setAttribute("aria-label", `Ir a la diapositiva ${i + 1}`);
+        dot.addEventListener("click", () => { goTo(i); start(); });
+        dotsBox.appendChild(dot);
+        return dot;
+    });
+
+    function goTo(i) {
+        index = (i + slides.length) % slides.length;
+        track.style.transform = `translateX(-${index * 100}%)`;
+        slides.forEach((slide, n) => {
+            slide.toggleAttribute("inert", n !== index);
+            slide.setAttribute("aria-hidden", String(n !== index));
+        });
+        dots.forEach((d, n) => d.classList.toggle("is-active", n === index));
+    }
+
+    function stop() { if (timer) clearInterval(timer); timer = null; }
+    function start() {
+        stop();
+        if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+        timer = setInterval(() => goTo(index + 1), DELAY);
+    }
+
+    // Deslizar con el dedo en celular
+    let startX = 0;
+    root.addEventListener("touchstart", (e) => { startX = e.touches[0].clientX; stop(); }, { passive: true });
+    root.addEventListener("touchend", (e) => {
+        const diff = e.changedTouches[0].clientX - startX;
+        if (Math.abs(diff) > 50) goTo(index + (diff < 0 ? 1 : -1));
+        start();
+    });
+
+    document.addEventListener("visibilitychange", () => (document.hidden ? stop() : start()));
+
+    goTo(0);
+    start();
+})();
+</script>
+<!-- ============ FIN HERO CARRUSEL ============ -->
+
+{% include "clientes/partials/_values.html" %}
+
+<section class="mx-auto max-w-7xl px-6 py-20 lg:px-8" aria-labelledby="featured-title">
+    <div class="flex flex-col gap-5 sm:flex-row sm:items-end sm:justify-between">
+        <div>
+            <p class="text-xs font-bold uppercase tracking-[0.25em] text-field" data-i18n="home.selection">Nuestra selección</p>
+            <h2 id="featured-title" class="mt-3 font-display text-4xl font-semibold text-navy sm:text-5xl" data-i18n="home.selectionTitle">Frescura que se nota</h2>
+            <p class="mt-4 max-w-2xl text-sm leading-6 text-slate-600" data-i18n="home.selectionDesc">Texturas suaves, sabores reales y el cuidado de productores que trabajan cada día con la familia.</p>
+        </div>
+        <a href="{{ url_for('productos.productos') }}" class="inline-flex shrink-0 items-center gap-2 text-xs font-bold uppercase tracking-wider text-navy transition hover:text-field" data-i18n="home.viewCatalog">Ver catálogo completo <span aria-hidden="true">→</span></a>
+    </div>
+
+    <div class="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+        {% for product in products %}
+        <article class="group overflow-hidden rounded-2xl border border-slate-100 bg-white shadow-soft" data-featured-card>
+            <div class="aspect-[4/3] overflow-hidden bg-cream">
+                <img class="h-full w-full object-cover" src="{{ product.image }}" alt="{{ product.alt }}" width="600" height="450" loading="lazy">
+            </div>
+            <div class="p-5">
+                <p class="text-[10px] font-bold uppercase tracking-[0.18em] text-field">{{ product.category }}</p>
+                <h3 class="mt-2 font-display text-xl font-semibold text-navy">{{ product.name }}</h3>
+                <p class="mt-1 text-sm text-slate-500">{{ product.detail }}</p>
+                <a href="{{ url_for('formulario.formulario', producto=product.name) }}" class="mt-4 inline-flex items-center gap-2 text-xs font-bold text-navy transition hover:text-field">Pedir ahora <span aria-hidden="true">→</span></a>
+            </div>
+        </article>
+        {% endfor %}
+    </div>
+</section>
+
+<section class="bg-cream py-20" aria-labelledby="carousel-title">
+    <div class="mx-auto max-w-7xl px-6 lg:px-8">
+        <div class="mx-auto mb-10 max-w-2xl text-center">
+            <p class="text-xs font-bold uppercase tracking-[0.25em] text-field" data-i18n="home.workBadge">Así trabajamos</p>
+            <h2 id="carousel-title" class="mt-3 font-display text-4xl font-semibold text-navy sm:text-5xl" data-i18n="home.workTitle">Del origen a tu familia</h2>
+            <p class="mt-4 text-sm leading-6 text-slate-600" data-i18n="home.workText">Un proceso sencillo, cercano y lleno de cuidado en cada etapa.</p>
+        </div>
+
+        {% include "clientes/partials/_carousel.html" %}
+    </div>
+</section>
+
+<section id="historia" class="mx-auto grid max-w-7xl gap-10 px-6 py-20 lg:grid-cols-2 lg:items-center lg:px-8" aria-labelledby="origin-title">
+    <div>
+        <p class="text-xs font-bold uppercase tracking-[0.25em] text-field" data-i18n="home.identityBadge">Nuestra identidad</p>
+        <h2 id="origin-title" class="mt-3 font-display text-4xl font-semibold leading-tight text-navy sm:text-5xl" data-i18n="home.originTitle">Tradición que se renueva cada día</h2>
+        <p class="mt-6 text-base leading-7 text-slate-600" data-i18n="home.originText1">En Santa Clara creemos que una buena fuente de alimento comienza cerca. Trabajamos junto a productores locales, cuidamos nuestros animales y elaboramos productos pensados para las familias.</p>
+        <p class="mt-4 text-base leading-7 text-slate-600" data-i18n="home.originText2">La Asociación de Mujeres Mi Santa Clara convierte ese compromiso en una oportunidad compartida: mejores productos, ingresos justos y una comunidad más fuerte.</p>
+        <a href="{{ url_for('nosotros.nosotros') }}" class="mt-8 inline-flex items-center gap-3 rounded-full bg-navy px-6 py-3.5 text-xs font-bold uppercase tracking-wider text-white transition hover:bg-navy-dark" data-i18n="home.originCta">Conoce nuestra historia <span aria-hidden="true">→</span></a>
+    </div>
+
+    <div class="relative">
+        <img class="aspect-[4/3] w-full rounded-3xl object-cover shadow-xl" src="https://images.unsplash.com/photo-1500076656116-558758c991c1?auto=format&fit=crop&w=1200&q=85" alt="Productores trabajando en el campo" width="900" height="675" loading="lazy">
+        <div class="absolute -bottom-6 -left-4 max-w-xs rounded-2xl bg-white p-5 shadow-xl sm:-left-8">
+            <p class="font-display text-3xl text-field">100%</p>
+            <p class="mt-1 text-xs font-bold uppercase tracking-wider text-navy">Origen local y cercano</p>
+        </div>
+    </div>
+</section>
+
+<section class="mx-6 mb-20 overflow-hidden rounded-3xl bg-navy px-6 py-14 text-center text-white sm:px-10 lg:mx-auto lg:max-w-7xl">
+    <p class="text-xs font-bold uppercase tracking-[0.25em] text-lime-200" data-i18n="home.readyBadge">¿Ya sabes qué quieres?</p>
+    <h2 class="mx-auto mt-4 max-w-2xl font-display text-4xl font-semibold sm:text-5xl" data-i18n="home.readyTitle">Tu pedido empieza con un mensaje</h2>
+    <p class="mx-auto mt-5 max-w-xl text-sm leading-6 text-white/70" data-i18n="home.readyText">Cuéntanos qué necesitas y te ayudaremos a coordinar la entrega.</p>
+    <a href="{{ url_for('formulario.formulario') }}" class="mt-8 inline-flex items-center gap-2 rounded-full bg-field px-7 py-4 text-xs font-bold uppercase tracking-wider text-white transition hover:bg-field-dark" data-i18n="home.readyOrder">Realizar pedido <span aria-hidden="true">→</span></a>
+</section>
+{% endblock %}
+
+{% block scripts %}
+<script defer src="{{ url_for('static', filename='js/carousel.js') }}"></script>
+{% endblock %}
